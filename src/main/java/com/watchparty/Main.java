@@ -9,15 +9,21 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         WatchPartyApiClient apiClient =
         new WatchPartyApiClient(HttpClient.newHttpClient());
+        boolean running = true;
 
-        System.out.println("1. List productions");
-        System.out.println("2. Show a session's current beat");
-        System.out.println("3. Show a session's current scene");
-        System.out.println("4. Show a beat by ID");
-        System.out.print("Choose 1-4: ");
-        int choice = scanner.nextInt();
+        while (running) {
+            System.out.println("1. List productions");
+            System.out.println("2. Show a session's current beat");
+            System.out.println("3. Show a session's current scene");
+            System.out.println("4. Show a beat by ID");
+            System.out.println("0. Exit");
+            System.out.print("Choose 0-4: ");
+            int choice = scanner.nextInt();
 
-        switch (choice) {
+            switch (choice) {
+            case 0:
+                running = false;
+                break;
             case 1:
                 try {
                     for (String title : apiClient.getProductions()) {
@@ -77,6 +83,9 @@ public class Main {
                 break;
             default:
                 System.out.println("Invalid choice");
+            }
         }
+
+        scanner.close();
     }
 }
